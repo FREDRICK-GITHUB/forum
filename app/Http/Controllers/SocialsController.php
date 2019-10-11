@@ -15,10 +15,14 @@ class SocialsController extends Controller
 
     public function auth_callback($provider)
     {
-        SocialAuth::login($provider,function($user,$details)
-        {
-            dd($details);
-            // $user ->avatar = $details->avatar;
+         SocialAuth::login($provider, function($user,$details){
+            // dd($details);
+            $user ->avatar = $details->avatar;
+            $user ->email = $details ->email;
+            $user ->name = $details ->full_name;
+            $user ->save();
         });
+
+        return redirect('/home');
     }
 }
