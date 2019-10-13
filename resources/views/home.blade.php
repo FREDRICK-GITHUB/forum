@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="col-md-8">
+        <main class="py-4">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -17,7 +16,6 @@
                     You are logged in!
                 </div>
             </div>
-        </div>
+        </main>    
     </div>
-</div>
 @endsection
