@@ -21,9 +21,12 @@
                 </p>
             </div>
             <div class="card-footer">
-                <p>
+                <span>
                     {{ $d->replies->count()}} Replies
-                </p>
+                </span>
+                <a href="{{ route('channel',['slug' => $d->channel->slug])}}" class="pull-right btn btn-xs btn-default">
+                    {{ $d->channel->title }}
+                </a>
             </div>
         </div><br>
         
@@ -53,23 +56,33 @@
             </div>
         </div><br>
         @endforeach
-
-        <div class="card">      
-            <div class="card-body">
-                <form action="{{ route('discussion.reply',['id' => $d->id])}}" method="POST">
-                {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="reply">Leave a reply...</label>
-                        <textarea name="reply" id="reply" cols="30" rows="10" class="form-control">
-
-                        </textarea>
+        
+        @if(Auth::check())
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ route('discussion.reply',['id' => $d->id])}}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="reply">Leave a reply...</label>
+                            <textarea name="reply" id="reply" cols="30" rows="10" class="form-control">
+            
+                                    </textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn pull-right">Leave a reply </button>
+                        </div>
+                    </form>
+                </div>
+            </div><br>
+        @else
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group text-center">
+                        <h2> Sign in to leave a reply</h2>
                     </div>
-                    <div class="form-group">
-                        <button class="btn pull-right">Leave a reply </button>
-                    </div>
-                </form>
-            </div>
-        </div><br>
+                </div>
+            </div>        
+        @endif
     </main>
 </div>
 @endsection

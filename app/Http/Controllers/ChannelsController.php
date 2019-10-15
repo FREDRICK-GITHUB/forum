@@ -28,20 +28,17 @@ class ChannelsController extends Controller
         return view('channels.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
         $this -> validate($request,[
-            'channel'=>'required'
+            'channel'=>'required',
+            'slug' => 'required'
         ]);
 
         Channel::create([
-            'title' => $request->channel
+            'title' => $request->channel,
+            'slug' => str_slug($request->channel)
         ]);
 
         Session::flash('success','Channel created.');
@@ -49,41 +46,27 @@ class ChannelsController extends Controller
         return redirect()->route('channels.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+    
     public function edit($id)
     {
-        // Channel::find($id);
         return view('channels.edit')->with('channel',Channel::find($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
         $channel = Channel::find($id);
 
         $channel->title = $request->channel;
+        $channel->slug = str_slug($request->channel);
+        
         $channel->save();
 
         Session::flash('success','Channel edited successfully.');

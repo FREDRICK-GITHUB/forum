@@ -65,7 +65,7 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
+            {{-- @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/') }}">Home</a>
@@ -77,20 +77,21 @@
                         @endif
                     @endauth
                 </div>
-            @endif
+            @endif --}}
 
             <div class="content">
                 <div class="title m-b-md">
-                    Udemy Course Forum
+                    <a href="/forum" style="text-decoration: none; color:black;"> Udemy Course Forum </a>
                 </div>
 
                 <div class="links">
                 <a href="{{ route('social.auth',['provider' => 'github'])}}">GitHub</a>
                 <a href="{{ route('social.auth',['provider' => 'facebook'])}}">Facebook</a>
-                <a href="{{ route('social.auth',['provider' => 'google'])}}">Google</a>
+                <a href="/login">Email login</a>
+                {{-- <a href="{{ route('social.auth',['provider' => 'google'])}}">Google</a>
                 <a href="{{ route('social.auth',['provider' => 'linkedin'])}}">LinkedIn</a>
                 <a href="{{ route('social.auth',['provider' => 'instagram'])}}">Instagram</a>
-                <a href="{{ route('social.auth',['provider' => 'soundcloud'])}}">Soundcloud</a>
+                <a href="{{ route('social.auth',['provider' => 'soundcloud'])}}">Soundcloud</a> --}}
                 </div>
             </div>
         </div>

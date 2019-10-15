@@ -19,15 +19,20 @@ Route::get('/discuss', function () {
     return view('discuss');
 });
 
-// cleared
+
  Route::get('discussion/{slug}',[
     'uses' => 'DiscussionsController@show',
     'as' => 'discussion'
 ]);
 
+Route::get('/channel/{slug}',[
+    'uses' => 'ForumsController@channel',
+    'as' => 'channel'
+]);
+
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home'); //cleared
+
 Route::get('/forum',[
     'uses' => 'ForumsController@index',
     'as' => 'forum'
@@ -43,11 +48,12 @@ Route::get('/{provider}/redirect',[
     'as' => 'social.callback'
     ]);
 
+    
 Route::group(['middleware' => 'auth'],function(){
 
     Route::resource('channels','ChannelsController');
 
-    Route::get('discussion/create',[
+    Route::get('discussion/create/new',[
         'uses' => 'DiscussionsController@create',
         'as' => 'discussions.create'
     ]);
@@ -61,10 +67,6 @@ Route::group(['middleware' => 'auth'],function(){
         'uses' => 'DiscussionsController@reply',
         'as' => 'discussion.reply'
     ]);
-
-
-
-
 
     Route::get('/reply/like/{id}',[
         'uses' => 'RepliesController@like',

@@ -21,9 +21,13 @@
                         {{-- {{ $d ->content }} --}}
                     </div>
                     <div class="card-footer">
-                        <p>
+                        <span>
                             {{ $d->replies->count()}} Replies
-                        </p>
+                        </span>
+                    <a href="{{ route('channel',['slug' => $d->channel->slug])}}" 
+                            class="pull-right btn btn-xs btn-default">
+                            {{ $d->channel->title }}
+                        </a>
                     </div>
                 </div><br>
             @endforeach
