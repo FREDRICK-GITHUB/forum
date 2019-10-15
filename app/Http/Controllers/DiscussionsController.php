@@ -41,8 +41,13 @@ class DiscussionsController extends Controller
     public function show($slug)
     {
         // $discussion = Discussion::where('slug',$slug)->first();
+        $discussion = Discussion::where('slug',$slug)->first();
 
-        return view('discussions.show')->with('d',Discussion::where('slug',$slug)->first());
+        $best_answer = $discussion->replies()->where('best_answer',1)->first();
+
+        return view('discussions.show')
+                    ->with('d',$discussion)
+                    ->with('best_answer',$best_answer);
     }
 
     public function reply($id){
@@ -62,7 +67,7 @@ class DiscussionsController extends Controller
             array_push($watchers, User::find($watcher->user_id));
         endforeach;
         
-        dd($watchers);
+        // dd($watchers);
 
         
         Session::flash('success','Replied to discussion.');

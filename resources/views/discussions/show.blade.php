@@ -23,13 +23,33 @@
                 </h5><hr>
                 <p class="text-center">
                     {{ $d->content }}
-                </p>
+                </p><hr>
+
+                @if($best_answer)
+                    <div class="text-center" style="padding: 40px;">
+                        <h4 class="text-center">
+                            BEST ANSWER
+                        </h4>
+                        <div class="card">
+                            <div class="card-header">
+                                <img src="{{ $best_answer->user->avatar }}" alt="Avatar file" width="40px" height="40px">
+                                &nbsp;&nbsp;&nbsp;
+                                <span> {{$best_answer->user->name}} </b></span>
+                            </div>
+                            <div class="card-body">
+                                {{ $best_answer->content}}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
             <div class="card-footer">
                 <span>
                     {{ $d->replies->count()}} Replies
                 </span>
-                <a href="{{ route('channel',['slug' => $d->channel->slug])}}" class="pull-right btn btn-xs btn-default">
+                <a href="{{ route('channel',['slug' => $d->channel->slug])}}" 
+                    class="pull-right btn btn-xs btn-default">
                     {{ $d->channel->title }}
                 </a>
             </div>
@@ -41,7 +61,10 @@
                 <img src="{{ $r->user->avatar }}" alt="Avatar file" width="40px" height="40px">
                 &nbsp;&nbsp;&nbsp;
                 <span> {{$r->user->name}}, <b>{{$r->created_at->diffForHumans()}}</b></span>
-        
+                @if(!$best_answer)
+                    <a href="{{ route('discussion.best.answer',['id' => $r->id])}}" 
+                    class="btn btn-xs btn-info pull-right">Mark as best answer</a>
+                @endif
             </div>
             <div class="card-body">
                 <p>{{ $r->content}}</p>
