@@ -19,9 +19,19 @@ Route::get('/discuss', function () {
     return view('discuss');
 });
 
+// cleared
+ Route::get('discussion/{slug}',[
+    'uses' => 'DiscussionsController@show',
+    'as' => 'discussion'
+]);
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home'); //cleared
+Route::get('/forum',[
+    'uses' => 'ForumsController@index',
+    'as' => 'forum'
+]);
 
 Route::get('{provider}/auth',[
     'uses' => 'SocialsController@auth',
@@ -47,9 +57,23 @@ Route::group(['middleware' => 'auth'],function(){
         'as' => 'discussions.store'
     ]);
 
-    Route::get('discussion/{slug}',[
-        'uses' => 'DiscussionsController@show',
-        'as' => 'discussion'
+    Route::post('/discussion/reply/{id}',[
+        'uses' => 'DiscussionsController@reply',
+        'as' => 'discussion.reply'
+    ]);
+
+
+
+
+
+    Route::get('/reply/like/{id}',[
+        'uses' => 'RepliesController@like',
+        'as' => 'reply.like'
+    ]);
+
+    Route::get('/reply/unlike/{id}',[
+        'uses' => 'RepliesController@unlike',
+        'as' => 'reply.unlike'
     ]);
 
 });

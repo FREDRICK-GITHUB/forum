@@ -25,5 +25,12 @@ class UsersTableSeeder extends Seeder
             'email' => 'fredrick@gmail.com',
             'avatar' => asset('avatars/avatar.png')   
         ]);
+
+        App\User::create([
+            'name' => 'asd',
+            'password' => bcrypt('asdfghj'),
+            'email' => 'asd@gmail.com',
+            'avatar' => asset('avatars/avatar.png')   
+        ]);
     }
 }

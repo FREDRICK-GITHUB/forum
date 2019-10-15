@@ -18,19 +18,19 @@ class RepliesTableSeeder extends Seeder
         ]);
 
         App\Reply::create([
-            'user_id' => '2',
+            'user_id' => '1',
             'discussion_id' => '2',
             'content' => 'The logs have no change at all'
         ]);
 
         App\Reply::create([
-            'user_id' => '1',
+            'user_id' => '2',
             'discussion_id' => '3',
             'content' => 'Very beginer friendly'
         ]);
 
         App\Reply::create([
-            'user_id' => '2',
+            'user_id' => '1',
             'discussion_id' => '4',
             'content' => 'This is  awesome for UI'
         ]);

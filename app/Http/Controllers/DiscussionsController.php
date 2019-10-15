@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Session;
 use App\Discussion;
+use App\Reply;
 use Illuminate\Http\Request;
 
 class DiscussionsController extends Controller
@@ -24,14 +25,14 @@ class DiscussionsController extends Controller
         ]);
         
         $discussion = Discussion::create([
-            'title' => $r-> title,
+            'title' => $r->title,
             'content' => $r->content,
             'channel_id' => $r->channel_id,
             'user_id' => Auth::id(),
             'slug' => str_Slug($r->title)
         ]);
 
-        Session::flash('success', 'Discussion successfully created');
+        Session::flash('success', 'Discussion successfully created.');
 
         return redirect()->route('discussion',['slug' => $discussion->slug]);
     }
@@ -40,6 +41,21 @@ class DiscussionsController extends Controller
     {
         // $discussion = Discussion::where('slug',$slug)->first();
 
-        return view('discussions.show')->with('discussion',Discussion::where('slug',$slug)->first());
+        return view('discussions.show')->with('d',Discussion::where('slug',$slug)->first());
+    }
+
+    public function reply($id){
+
+        $d = Discussion::find($id);
+
+        $reply = Reply::create([
+            'user_id' => Auth::id(),
+            'discussion_id' => $id,
+            'content' => request()->reply
+        ]);
+        
+        Session::flash('success','Replied to discussion.');
+
+        return redirect()->back();
     }
 }

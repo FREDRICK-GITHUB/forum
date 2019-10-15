@@ -48,13 +48,5 @@ class DiscussionsTableSeeder extends Seeder
             'user_id' => '2',
             'channel_id' => '4'        
         ]);
-
-        App\Discussion::create([
-            'title' => $t5,
-            'slug' => str_slug($t5),
-            'content' => 'Starting off with Wordpress',
-            'user_id' => '2',
-            'channel_id' => '5'        
-        ]);
     }
 }
