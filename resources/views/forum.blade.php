@@ -9,6 +9,8 @@
                         <img src="{{ $d->user->avatar }}" alt="Avatar file" 
                         width="40px" height="40px">&nbsp;&nbsp;&nbsp;
                     <span> {{$d->user->name}}, <b>{{$d->created_at->diffForHumans()}}</b></span>
+                    <a href="{{ route('discussion',['slug' => $d->slug])}}" 
+                        class="btn btn-default pull-right btn-xs" style="margin-left: 9px;">view</a>
                     @if($d->hasBestAnswer())
                         <span class="btn btn pull-right btn-success btn-xs">
                             closed
@@ -18,8 +20,6 @@
                             open
                         </span>
                     @endif
-                    <a href="{{ route('discussion',['slug' => $d->slug])}}" 
-                        class="btn btn-default pull-right btn-xs">view</a>
                     </div>
                 
                     <div class="card-body">

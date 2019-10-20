@@ -8,12 +8,28 @@
                 <img src="{{ $d->user->avatar }}" alt="Avatar file" width="40px" height="40px">
                 &nbsp;&nbsp;&nbsp;
                 <span> {{$d->user->name}} <b>({{$d->user->points}}points)</b></span>
+                @if($d->hasBestAnswer())
+                <span class="btn btn pull-right btn-success btn-xs">
+                    closed
+                </span>
+                @else
+                <span class="btn btn pull-right btn-danger btn-xs">
+                    open
+                </span>
+                @endif
+                @if(Auth::id() == $d->user->id)
+                    @if (!$d->hasBestAnswer())
+                        <a href="{{ route('discussion.edit',['slug' => $d->slug])}}" 
+                            class="btn btn-info btn-xs pull-right"
+                            style="margin-right: 8px;">Edit</a>
+                    @endif
+                @endif
                 @if($d->is_being_watched_by_auth_user())
                     <a href="{{ route('discussion.unwatch',['id' => $d->id])}}"
-                    class="btn btn-default btn-xs pull-right">unwatch</a>
+                    class="btn btn-default btn-xs pull-right" style="margin-right: 8px;">unwatch</a>
                 @else
                     <a href="{{ route('discussion.watch',['id' => $d->id]) }}"
-                    class="btn btn-default btn-xs pull-right">watch</a>
+                    class="btn btn-default btn-xs pull-right" style="margin-right: 8px;">watch</a>
                 @endif    
             </div>
         
@@ -66,7 +82,15 @@
                 @if(!$best_answer)
                     @if(Auth::id() == $d->user->id)
                         <a href="{{ route('discussion.best.answer',['id' => $r->id])}}"
-                             class="btn btn-xs btn-info pull-right">Mark as best answer</a>                          
+                             class="btn btn-xs btn-primary pull-right" style="margin-left:8px;" >Mark as best answer</a>                          
+                    @endif
+                @endif
+
+                @if (Auth::id() == $r->user->id)
+                    @if (! $r->best_answer)
+                    <a href="{{ route('reply.edit',['id' => $r->id])}}" ] 
+                        class="btn btn-xs btn-info pull-right">Edit</a>
+                    
                     @endif
                 @endif
             </div>
