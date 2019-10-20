@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Session;
+use Notification;
 use App\Discussion;
 use App\Reply;
 use App\User;
@@ -68,6 +69,7 @@ class DiscussionsController extends Controller
         endforeach;
         
         // dd($watchers);
+        Notification::send($watchers,new \App\Notifications\NewReplyAdded($d));
 
         
         Session::flash('success','Replied to discussion.');
