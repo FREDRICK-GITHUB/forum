@@ -42,6 +42,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atom-one-dark.min.css">
 </head>
 
 <body>
@@ -52,7 +53,8 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                    aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -85,7 +87,8 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('logout') }}" 
+                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
@@ -138,24 +141,37 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div><br>
-
-                        <div class="card">
-                            <div class="card-header ">Channels</div>
-
+                            @if (Auth::check())
+                            @if (Auth::user()->admin)
+                            {{-- <div class="card"> --}}
                             <div class="card-body">
                                 <ul class="list-group">
-                                    @foreach ($channels as $channel)
                                     <li class="list-group-item">
-                                        <a href="{{ route('channel', ['slug' => $channel->slug])}}"
-                                            style="text-decoration: none;">{{ $channel->title }}</a>
-
+                                        <a href="/channels" style="text-decoration: none;">All channels</a>
                                     </li>
-                                    @endforeach
                                 </ul>
                             </div>
-                        </div>
+                        </div><br>
+                        @endif
+                        @endif
                     </main>
+
+                    <div class="card">
+                        <div class="card-header ">Channels</div>
+
+                        <div class="card-body">
+                            <ul class="list-group">
+                                @foreach ($channels as $channel)
+                                <li class="list-group-item">
+                                    <a href="{{ route('channel', ['slug' => $channel->slug])}}"
+                                        style="text-decoration: none;">{{ $channel->title }}</a>
+
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    
                 </div>
 
                 @yield('content')
@@ -170,6 +186,11 @@
         @if(Session::has('success'))
                 toastr.success('{{ Session::get('success') }}')
         @endif
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js">
+    </script>
+    <script>
+        hljs.initHighlightingOnLoad();
     </script>
 </body>
 
