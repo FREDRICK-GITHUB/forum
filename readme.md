@@ -1,6 +1,3 @@
-<p align="center">
-</p>
-
 ## How to use
 
 ## STEPS
